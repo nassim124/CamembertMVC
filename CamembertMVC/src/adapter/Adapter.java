@@ -1,6 +1,7 @@
 package adapter;
 
 import java.awt.Color;
+import java.awt.image.ColorModel;
 import java.util.ArrayList;
 import java.util.Observable;
 
@@ -13,17 +14,24 @@ public class Adapter extends Observable implements ICamembertModel{
 	CamembertModel model;
 	
 	int totalItem;
-	
+	int blue=80;
 	
 	
 	public Adapter() {
 		super();
 		this.model = new CamembertModel();
 		
-		this.model.addItem(new Item("item2", "description2", Color.BLUE, 20, 200, 200));
-		this.model.addItem(new Item("item3", "description3", Color.CYAN, 30, 200, 200));
-		this.model.addItem(new Item("item4", "description5", Color.RED, 40, 200, 200));
-		this.model.addItem(new Item("item5", "description5", Color.MAGENTA, 50, 200, 200));
+		this.model.addItem(new Item("item3", "description3", new Color(0, 0,this.blue), 30, 250, 250));
+		this.blue += 35;
+		this.model.addItem(new Item("item3", "description3", new Color(0, 0,this.blue), 30, 250, 250));
+		this.blue += 35;
+		this.model.addItem(new Item("item2", "description2", new Color(0, 0,this.blue), 20, 250, 250));
+		this.blue += 35;
+		this.model.addItem(new Item("item3", "description3", new Color(0, 0,this.blue), 30, 250, 250));
+		this.blue += 35;
+		this.model.addItem(new Item("item4", "description5", new Color(0, 0,this.blue), 40, 250, 250));
+		this.blue += 35;
+		this.model.addItem(new Item("item5", "description5", new Color(0, 0,this.blue), 50, 250, 250));
 		
 		ArrayList<Item> itemList = model.getListItem();
 		for (int i=0; i<itemList.size(); i++){

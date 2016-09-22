@@ -25,9 +25,9 @@ public class mView extends JFrame {
 	
 		ICamembertModel model = new Adapter();
 		
-		IController controller = new Controller (myView, model);
+		myView = new CamembertView(model);
 		
-		myView = new CamembertView(model, controller);
+		IController controller = new Controller (myView, model);
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
