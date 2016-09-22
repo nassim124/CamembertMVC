@@ -2,7 +2,9 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.event.KeyEvent;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,13 +19,14 @@ public class mView extends JFrame {
 
 	CamembertView myView;
 	JPanel CamembertPanel;
-	JButton btn;
+	JButton b1;
 	
 	
 	
 	public mView(){
 	
 		ICamembertModel model = new Adapter();
+		
 		
 		myView = new CamembertView(model);
 		

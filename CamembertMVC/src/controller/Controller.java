@@ -5,7 +5,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import model.ICamembertModel;
-
+import model.Item;
 import view.CamembertView;
 
 public class Controller implements IController, MouseListener{
@@ -32,7 +32,6 @@ public class Controller implements IController, MouseListener{
 
 	public void setChangeOnClick (MouseEvent e){
 
-
 		for (int i=0; i< myView.getListItem().size(); i++){
 			if (this.myView.getArcs().get(i).contains(e.getX(), e.getY())){
 				this.myView.setSelected(true);
@@ -40,11 +39,12 @@ public class Controller implements IController, MouseListener{
 				this.myView.getListItem().get(i).setColor(Color.BLACK);
 			}
 		}
-
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		
+		String SelectedItem= "";
 		// TODO Auto-generated method stub
 		for (int i=0; i<  myView.getListItem().size(); i++){
 
@@ -58,10 +58,11 @@ public class Controller implements IController, MouseListener{
 				this.myView.setSelected(true);
 				this.myView.getArcs().get(i).setFrame(100, 100, 300, 300);
 				this. myView.getListItem().get(i).setColor(Color.BLACK);
+				SelectedItem = this. myView.getListItem().get(i).getTitre();
 			}
 		}
 
-		myView.setmTexte("Mouse at "+e.getX()+"x"+e.getY());
+		myView.setmTexte(SelectedItem);
 		myView.repaint();
 		myView.revalidate();
 
