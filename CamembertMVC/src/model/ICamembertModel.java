@@ -11,4 +11,7 @@ public interface ICamembertModel {
 	public ArrayList<Item> getListItem();
 	
 	public int getTotalItem();
+
+	public void setTotalItem(int totalItem);
+
 }

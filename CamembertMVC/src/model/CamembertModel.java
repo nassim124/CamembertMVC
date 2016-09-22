@@ -41,4 +41,9 @@ public class CamembertModel implements ICamembertModel, Observer{
 		return this.totalItem;
 	}
 
+	@Override
+	public void setTotalItem(int totalItem) {
+		this.totalItem=totalItem;
+	}
+
 }

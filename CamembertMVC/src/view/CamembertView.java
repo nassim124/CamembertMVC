@@ -33,7 +33,7 @@ public class CamembertView extends JComponent {
 		//add arc for each item 
 		for (int i=0; i<listItem.size(); i++){
 			Arc2D.Float arc = new Arc2D.Float(Arc2D.PIE);
-			arc.setFrame(125, 125, listItem.get(i).getX(), listItem.get(i).getY());
+			arc.setFrame(125, 125, 250, 250);
 			arcs.add(arc);			
 		}
 
@@ -52,6 +52,11 @@ public class CamembertView extends JComponent {
 		for (int i=0; i<arcs.size(); i++){
 				drawCercle (g2d, arcs.get(i), listItem.get(i));
 		}
+		/*if (this.selected){
+			g2d.setColor(Color.white);
+			
+			g2d.drawString( "test" , (int)this.getMousePosition().getX(), (int)this.getMousePosition().getY());
+		}*/
 		
 		middleArc.setFrame(175, 175, 150, 150);
 		drawMiddleCercle(g2d, middleArc, this.getBackground());
