@@ -71,7 +71,7 @@ public class CamembertView extends JComponent {
 		
 		g2d.setColor(Color.white);
 		g2d.drawString( "Budget total" , 210, 240);
-		g2d.drawString( ""+this.model.getTotalItem() , 235, 260);
+		g2d.drawString(this.model.getTotalItem()+" €" , 235, 260);
 		
 		super.paintComponent(g);
 	}

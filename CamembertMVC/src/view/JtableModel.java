@@ -75,15 +75,9 @@ public class JtableModel extends AbstractTableModel implements ListSelectionList
 			case 1:
 				model.getListItem().get(rowIndex).setDescription((String)aValue);
 				break;
-			case 2:
-				
-				System.out.println(model.getTotalItem());
-				System.out.println("*********************");
+			case 2:				
+				model.setTotalItem((model.getTotalItem() - model.getListItem().get(rowIndex).getN()) + Integer.parseInt((String) aValue));
 				model.getListItem().get(rowIndex).setN((String)aValue);
-				model.setTotalItem(model.getTotalItem()-model.getListItem().get(rowIndex).getN()+Integer.parseInt((String) aValue));
-				System.out.println(model.getTotalItem());
-				System.out.println(model.getListItem().get(rowIndex).getN());
-				System.out.println(aValue);
 				break;
 			}
 		}
