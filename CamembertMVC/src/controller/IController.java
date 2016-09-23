@@ -8,8 +8,5 @@ import model.Item;
 public interface IController {
 	
 	
-	public void upDateToDefaultValue ();
-	
-	public void setChangeOnClick (MouseEvent e);
 
 }

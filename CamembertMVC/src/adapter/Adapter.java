@@ -45,6 +45,7 @@ public class Adapter extends Observable implements ICamembertModel{
 		return this.model.getListItem();
 	}
 	
+	
 	public void setTotalItem(int totalItem) {
 		model.setTotalItem(totalItem);
 	}

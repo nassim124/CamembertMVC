@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.geom.Arc2D;
 import java.util.ArrayList;
@@ -41,33 +42,41 @@ public class CamembertView extends JComponent {
 		Arc2D.Float middleArc2 = new Arc2D.Float(Arc2D.PIE);
 	}
 	
+	
 	public void paintComponent(Graphics g) {
 		Dimension d = getSize();
 		g2d = (Graphics2D) g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
 		// TODO: utilisation des données du IModel pour l'affichage
-		g2d.drawString( mTexte , 20, 34);
+		// g2d.drawString( mTexte , 20, 34);
 		
 		for (int i=0; i<arcs.size(); i++){
 				drawCercle (g2d, arcs.get(i), listItem.get(i));
 		}
-		/*if (this.selected){
-			g2d.setColor(Color.white);
-			
-			g2d.drawString( "test" , (int)this.getMousePosition().getX(), (int)this.getMousePosition().getY());
-		}*/
-		
+
 		middleArc.setFrame(175, 175, 150, 150);
 		drawMiddleCercle(g2d, middleArc, this.getBackground());
 		
 		middleArc2.setFrame(200, 200, 100, 100);
 		drawMiddleCercle(g2d, middleArc2, Color.BLUE);
 		
+		if (this.selected){
+			g2d.setColor(Color.RED);
+			Point p;
+			if ((p = this.getMousePosition())!=null) {
+				g2d.drawString( mTexte , (int)p.getX(), (int)p.getY());
+			}
+		}
+		
+		g2d.setColor(Color.white);
+		g2d.drawString( "Budget total" , 210, 240);
+		g2d.drawString( ""+this.model.getTotalItem() , 235, 260);
+		
 		super.paintComponent(g);
 	}
 	
-	//Drawing the ring
+	//Drawing the items cercle
 	public void drawCercle ( Graphics2D g2, Arc2D.Float arc, Item item){
 		arc.setAngleStart(temp*360/this.model.getTotalItem());
 		arc.setAngleExtent(item.getN()*360/this.model.getTotalItem());
@@ -80,7 +89,7 @@ public class CamembertView extends JComponent {
 		revalidate();
 	}
 	
-	
+	// drawing the middle cercle
 	public void drawMiddleCercle ( Graphics2D g2, Arc2D.Float arc, Color c){
 		arc.setAngleStart(0);
 		arc.setAngleExtent(360);
@@ -121,12 +130,12 @@ public class CamembertView extends JComponent {
 		this.mTexte = mTexte;
 	}
 
-	public void drawTextItem(Item item) {
-		// TODO Auto-generated method stub
-		this.g2d.setColor(Color.WHITE);
-		this.g2d.drawString("test Draw txt", 20, 50);
-		repaint();
-		revalidate();
-		
-	}
+//	public void drawTextItem(Item item) {
+//		//TODO Auto-generated method stub
+//		this.g2d.setColor(Color.WHITE);
+//		this.g2d.drawString("test Draw txt", 20, 50);
+//		repaint();
+//		revalidate();
+//		
+//	}
 }

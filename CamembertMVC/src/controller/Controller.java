@@ -5,12 +5,15 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.AbstractAction;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import model.ICamembertModel;
 import model.Item;
 import view.CamembertView;
 
-public class Controller implements IController, MouseListener{
+public class Controller implements IController, MouseListener {
 
 	private ICamembertModel Model;
 	private CamembertView myView;
@@ -22,26 +25,6 @@ public class Controller implements IController, MouseListener{
 		myView.addMouseListener(this);
 	}
 
-	public void upDateToDefaultValue (){
-		for (int i=0; i< myView.getListItem().size(); i++){
-
-			this.myView.getArcs().get(i).setFrame(125, 125, 250, 250);
-			this.myView.getListItem().get(i).setColor(this.myView.getListItem().get(i).getDefault_color());
-		}
-
-
-	}
-
-	public void setChangeOnClick (MouseEvent e){
-
-		for (int i=0; i< myView.getListItem().size(); i++){
-			if (this.myView.getArcs().get(i).contains(e.getX(), e.getY())){
-				this.myView.setSelected(true);
-				this.myView.getArcs().get(i).setFrame(100, 100, 300, 300);
-				this.myView.getListItem().get(i).setColor(Color.BLACK);
-			}
-		}
-	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -73,6 +56,8 @@ public class Controller implements IController, MouseListener{
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
+		
+		
 
 	}
 
@@ -84,13 +69,20 @@ public class Controller implements IController, MouseListener{
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
+		for (int i=0; i<  myView.getListItem().size(); i++){
+			myView.setmTexte("");
+			this.myView.getArcs().get(i).setFrame(125, 125, 250, 250);
+			this. myView.getListItem().get(i).setColor( myView.getListItem().get(i).getDefault_color());
+		}
 
 	}
+	
+	
 }

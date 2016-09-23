@@ -1,18 +1,12 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.ScrollPane;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-
-import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 
 import adapter.Adapter;
 import controller.Controller;
@@ -51,20 +45,21 @@ public class mView extends JFrame {
 		model.addItem(new Item("Facture mobile", "cher", new Color(0, 0,this.blue_contrast), 30));
 		blue_contrast += 35;
 		model.addItem(new Item("Facture carrefour", "trop cher", new Color(0, 0,this.blue_contrast), 120));
-		int totalItem = 0;
-		ArrayList<Item> itemList = model.getListItem();
-		for (int i=0; i<itemList.size(); i++){
-			totalItem = totalItem + itemList.get(i).getN();
-		}
-		model.setTotalItem (totalItem);
+		
+		
 		myView = new CamembertView(model);
-		JTable tableau = new JTable(new JtableModel(model));		
+		JTable table = new JTable(new JtableModel(model));	
+		
+		//add listener to JTableModel
+		ListSelectionModel listSelectionModel = table.getSelectionModel();        
+		listSelectionModel.addListSelectionListener(new JtableModel(model));
+
 		
 		IController controller = new Controller (myView, model);
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JScrollPane scrollPane = new JScrollPane(tableau);
+		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(0, 500, 800, 200);
         this.add(scrollPane);
 

@@ -22,6 +22,7 @@ public class CamembertModel implements ICamembertModel, Observer{
 	public void addItem(Item item) {
 		System.err.println(item.getTitre()+" added to itemList");
 		this.listItem.add(item);
+		this.totalItem+=item.getN();
 	}
 
 	@Override
