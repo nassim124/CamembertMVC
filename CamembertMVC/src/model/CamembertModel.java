@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-public class CamembertModel implements ICamembertModel, Observer{
+public class CamembertModel implements ICamembertModel{
 
 
 
@@ -28,13 +28,6 @@ public class CamembertModel implements ICamembertModel, Observer{
 	@Override
 	public void removeItem(Item item) {
 		this.listItem.remove(item);
-	}
-
-	@Override
-	public void update(Observable o, Object arg) {
-		
-		
-		
 	}
 
 	@Override

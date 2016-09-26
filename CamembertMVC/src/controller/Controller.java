@@ -4,23 +4,18 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.AbstractAction;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
 import model.ICamembertModel;
 import model.Item;
 import view.CamembertView;
 
 public class Controller implements IController, MouseListener {
 
-	private ICamembertModel Model;
+	private ICamembertModel model;
 	private CamembertView myView;
 
 	public Controller(CamembertView view, ICamembertModel AdapterModel) {
 
-		this.Model = AdapterModel;
+		this.model = AdapterModel;
 		this.myView=view;
 		myView.addMouseListener(this);
 	}
@@ -31,19 +26,19 @@ public class Controller implements IController, MouseListener {
 		
 		String SelectedItem= "";
 		// TODO Auto-generated method stub
-		for (int i=0; i<  myView.getListItem().size(); i++){
+		for (int i=0; i<  model.getListItem().size(); i++){
 
 			this.myView.getArcs().get(i).setFrame(125, 125, 250, 250);
-			this. myView.getListItem().get(i).setColor( myView.getListItem().get(i).getDefault_color());
+			this. model.getListItem().get(i).setColor( model.getListItem().get(i).getDefault_color());
 		}
 		myView.repaint();
 		myView.revalidate();
-		for (int i=0; i<  myView.getListItem().size(); i++){
+		for (int i=0; i<  model.getListItem().size(); i++){
 			if (this.myView.getArcs().get(i).contains(e.getX(), e.getY())){
 				this.myView.setSelected(true);
 				this.myView.getArcs().get(i).setFrame(100, 100, 300, 300);
-				this. myView.getListItem().get(i).setColor(Color.BLACK);
-				SelectedItem = this. myView.getListItem().get(i).getTitre();
+				this. model.getListItem().get(i).setColor(Color.BLACK);
+				SelectedItem = this. model.getListItem().get(i).getTitre();
 			}
 		}
 
@@ -76,10 +71,10 @@ public class Controller implements IController, MouseListener {
 	@Override
 	public void mouseExited(MouseEvent e) {
 		
-		for (int i=0; i<  myView.getListItem().size(); i++){
+		for (int i=0; i<  model.getListItem().size(); i++){
 			myView.setmTexte("");
 			this.myView.getArcs().get(i).setFrame(125, 125, 250, 250);
-			this. myView.getListItem().get(i).setColor( myView.getListItem().get(i).getDefault_color());
+			this. model.getListItem().get(i).setColor( model.getListItem().get(i).getDefault_color());
 		}
 
 	}

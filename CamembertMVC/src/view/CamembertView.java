@@ -8,12 +8,15 @@ import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.geom.Arc2D;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.JComponent;
 import model.ICamembertModel;
 import model.Item;
 
 
-public class CamembertView extends JComponent {
+public class CamembertView extends JComponent implements Observer{
 
 	private Graphics2D g2d;	
 	private ICamembertModel model;
@@ -27,7 +30,7 @@ public class CamembertView extends JComponent {
 	
 	
 	public CamembertView(ICamembertModel im) {	
-		mTexte = new String("Hello");
+		mTexte = "";
 		model = im;
 		this.listItem = model.getListItem();
 
@@ -102,9 +105,6 @@ public class CamembertView extends JComponent {
 	}	
 
 	
-	public ArrayList<Item> getListItem() {
-		return listItem;
-	}
 
 	public ArrayList<Arc2D.Float> getArcs() {
 		return arcs;
@@ -130,12 +130,20 @@ public class CamembertView extends JComponent {
 		this.mTexte = mTexte;
 	}
 
-//	public void drawTextItem(Item item) {
-//		//TODO Auto-generated method stub
-//		this.g2d.setColor(Color.WHITE);
-//		this.g2d.drawString("test Draw txt", 20, 50);
-//		repaint();
-//		revalidate();
-//		
-//	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		this.listItem = model.getListItem();
+		arcs = new ArrayList<>();
+
+		//add arc for each item 
+		for (int i=0; i<listItem.size(); i++){
+			Arc2D.Float arc = new Arc2D.Float(Arc2D.PIE);
+			arc.setFrame(125, 125, 250, 250);
+			arcs.add(arc);			
+		}
+		
+		repaint();
+		revalidate();
+	}
 }

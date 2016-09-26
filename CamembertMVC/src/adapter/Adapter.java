@@ -34,7 +34,7 @@ public class Adapter extends Observable implements ICamembertModel{
 	
 	@Override
 	public void removeItem(Item item) {
-		model.removeItem(item);
+		this.model.removeItem(item);
 		setChanged();
 		notifyObservers();
 	}
@@ -48,6 +48,8 @@ public class Adapter extends Observable implements ICamembertModel{
 	
 	public void setTotalItem(int totalItem) {
 		model.setTotalItem(totalItem);
+		setChanged();
+		notifyObservers();
 	}
 	
 	
