@@ -40,32 +40,31 @@ public class mView extends JFrame {
 	
 		ICamembertModel modelAdapter = new Adapter();
 		
-		modelAdapter.addItem(new Item("Loyer", "pas cher", new Color(0, 0,this.blue_contrast), 190));
+		modelAdapter.addItem(new Item("Loyer", "pas cher", Color.red, 190));
 		blue_contrast += 35;
-		modelAdapter.addItem(new Item("Impots", "cher", new Color(0, 0,this.blue_contrast), 100));
+		modelAdapter.addItem(new Item("Impots", "cher", Color.BLUE, 100));
 		blue_contrast += 35;
-		modelAdapter.addItem(new Item("Facture electricité", "tres cher", new Color(0, 0,this.blue_contrast), 80));
+		modelAdapter.addItem(new Item("Facture electricité", "tres cher", Color.CYAN, 80));
 		blue_contrast += 35;
-		modelAdapter.addItem(new Item("Facture eau", "pas trop cher", new Color(0, 0,this.blue_contrast), 40));
+		modelAdapter.addItem(new Item("Facture eau", "pas trop cher", Color.gray, 40));
 		blue_contrast += 35;
-		modelAdapter.addItem(new Item("Facture mobile", "cher", new Color(0, 0,this.blue_contrast), 30));
+		modelAdapter.addItem(new Item("Facture mobile", "cher", Color.orange, 30));
 		blue_contrast += 35;
-		modelAdapter.addItem(new Item("Facture carrefour", "trop cher", new Color(0, 0,this.blue_contrast), 120));
+		modelAdapter.addItem(new Item("Facture carrefour", "trop cher", Color.YELLOW, 120));
 		
 		
 		myView = new CamembertView(modelAdapter);
-		JTable table = new JTable(new JtableModel(modelAdapter));	
+		JTable table = new JTable(new JtableModel(modelAdapter, myView));	
 		
-		//add listener to JTableModel
-		ListSelectionModel listSelectionModel = table.getSelectionModel();        
-		listSelectionModel.addListSelectionListener(new JtableModel(modelAdapter));
+		//Ajouter un listener pour la JTable
+		ListSelectionModel listSelectionModel = table.getSelectionModel();      
+		JtableModel myJTable = new JtableModel(modelAdapter, myView);
+		listSelectionModel.addListSelectionListener(myJTable);
 
 		
-		JPanel panel1 = new JPanel(new BorderLayout());
-		JPanel panel2 = new JPanel();
-		JButton addButton = new JButton("Ajouter");
-		addButton.setBounds(160, 6, 100, 20);
-		//listner sur le bouton ajouter
+		//Ajouter le bouton "ajouter"
+		JButton addButton = new JButton("add");
+		addButton.setBounds(100, 650, 100, 20);
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Random rand = new Random();
@@ -73,13 +72,36 @@ public class mView extends JFrame {
 				float y = rand.nextFloat();
 				float z = rand.nextFloat();
 				Color color = new Color(x,y,z);
-				Item item1 = new Item("....",".....",color, 20);
 				
+				//Ajouter un item initialisé a des valeurs par defaut
+				Item item1 = new Item("item","item description",color, 10);
 				modelAdapter.addItem(item1);
 				AbstractTableModel dm = (AbstractTableModel) table.getModel();
 				dm.fireTableDataChanged();
 				
-				myView.update(null, modelAdapter);
+				// mettre a jour la vue
+				myView.update(null, null);
+			}
+		});
+		
+		
+		// Ajouter le removeButton
+		JButton removeButton = new JButton("delete");
+		removeButton.setBounds(250, 650, 100, 20);
+		removeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int lastItem = modelAdapter.getListItem().size()-1;	
+				
+				// supprimer le dernier item en cas de click
+				if (lastItem >=0){
+					modelAdapter.removeItem(modelAdapter.getListItem().get(lastItem));
+				}
+				
+				AbstractTableModel dm = (AbstractTableModel) table.getModel();
+				dm.fireTableDataChanged();
+				myView.update(null, null);
+				
 			}
 		});
 		
@@ -88,11 +110,10 @@ public class mView extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(0, 500, 800, 200);
+		scrollPane.setBounds(0, 500, 800, 150);
         this.add(scrollPane);
         this.add(addButton);
-        this.add(panel1);
-        this.add(panel2);
+        this.add(removeButton);
 		this.setSize(800, 800);
        
 		this.add(myView);

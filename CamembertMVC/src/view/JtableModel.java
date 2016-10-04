@@ -1,4 +1,6 @@
 package view;
+import java.awt.Color;
+
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -11,12 +13,15 @@ public class JtableModel extends AbstractTableModel implements ListSelectionList
 
 	private ICamembertModel model;
 
+	private CamembertView myView;
+
 	private final String[] entetes = {"item", "description", "quantité"};
 
 
-	public JtableModel(ICamembertModel model) {
+	public JtableModel(ICamembertModel model, CamembertView myView) {
 		super();
 		this.model = model;
+		this.myView = myView;
 	}
 
 	@Override
@@ -33,6 +38,7 @@ public class JtableModel extends AbstractTableModel implements ListSelectionList
 		return entetes[columnIndex];
 	}
 
+	// remplir la table par les valeurs du model
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 
@@ -47,23 +53,14 @@ public class JtableModel extends AbstractTableModel implements ListSelectionList
 		return null;
 	}
 
-	public void addItem(Item item) {
-		model.getListItem().add(item);
-
-		fireTableRowsInserted(model.getListItem().size() -1, model.getListItem().size() -1);
-	}
-
-	public void removeItem(int rowIndex) {
-		model.getListItem().remove(rowIndex);
-
-		fireTableRowsDeleted(rowIndex, rowIndex);
-	}
 
 	@Override
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
 		return true; //Toutes les cellules éditables
 	}
 
+	
+	//permet d'editer les valeurs des cases de chaque ligne
 	@Override
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 		if(aValue != null){
@@ -83,21 +80,44 @@ public class JtableModel extends AbstractTableModel implements ListSelectionList
 		}
 	}
 
+	
+	//Selectionner l'item dans le camembert qui correspond à l'item selectionner dans la table
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getValueIsAdjusting())
 			return;
 		ListSelectionModel lsm = (ListSelectionModel)e.getSource();
+		int selectedRow = lsm.getMinSelectionIndex();
 		if (lsm.isSelectionEmpty()) {
 			System.out.println("No rows selected");
 		}
 		else{
-			int selectedRow = lsm.getMinSelectionIndex();
-			System.out.println("The row "+selectedRow+" is now selected");
+			
+			for (int i=0; i<  this.model.getListItem().size(); i++){
 
+				this.myView.getArcs().get(i).setFrame(125, 125, 250, 250);
+				this. model.getListItem().get(i).setColor( model.getListItem().get(i).getDefault_color());
+			}
+			
+			myView.repaint();
+			myView.revalidate();
+
+			this.myView.setSelected(true);
+			this.myView.getArcs().get(selectedRow).setFrame(100, 100, 300, 300);
+			this. model.getListItem().get(selectedRow).setColor(Color.BLACK);
+			myView.setSelectedItem(this. model.getListItem().get(selectedRow));
 		}
+
+		if (myView.getSelectedItem() != null){
+			myView.setmTexte(myView.getSelectedItem().getTitre());
+		}
+		myView.repaint();
+		myView.revalidate();
+
+
+		System.out.println("The row "+selectedRow+" is now selected");
+
 	}
-
-
 }
+

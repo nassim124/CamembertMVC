@@ -18,6 +18,9 @@ public class Adapter extends Observable implements ICamembertModel{
 		this.model = new CamembertModel();		
 	}
 
+	public void notifyObservers() {
+		super.notifyObservers();
+	}
 
 	public int getTotalItem() {
 		return model.getTotalItem();
@@ -28,7 +31,7 @@ public class Adapter extends Observable implements ICamembertModel{
 	public void addItem(Item item) {
 		model.addItem(item);
 		setChanged();
-		notifyObservers();
+		this.notifyObservers();
 	}
 
 	
@@ -36,7 +39,7 @@ public class Adapter extends Observable implements ICamembertModel{
 	public void removeItem(Item item) {
 		this.model.removeItem(item);
 		setChanged();
-		notifyObservers();
+		this.notifyObservers();
 	}
 
 
@@ -49,7 +52,7 @@ public class Adapter extends Observable implements ICamembertModel{
 	public void setTotalItem(int totalItem) {
 		model.setTotalItem(totalItem);
 		setChanged();
-		notifyObservers();
+		this.notifyObservers();
 	}
 	
 	

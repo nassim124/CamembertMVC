@@ -28,6 +28,7 @@ public class CamembertModel implements ICamembertModel{
 	@Override
 	public void removeItem(Item item) {
 		this.listItem.remove(item);
+		this.totalItem-=item.getN();
 	}
 
 	@Override
