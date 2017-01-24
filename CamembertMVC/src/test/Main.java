@@ -5,7 +5,7 @@ import view.mView;
 public class Main {
 
 	
-	public static void amain(String[] args) {
+	public static void main(String[] args) {
 
 		
 		mView v = new mView();
