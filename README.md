@@ -1,3 +1,1 @@
 # CamembertMVC
-
-Stats des données 
